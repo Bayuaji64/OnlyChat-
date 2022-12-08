@@ -1,28 +1,56 @@
-const {Profile, User,Post} = require('../models')
+const {Profile, User,Post,Tag} = require('../models')
 const bcrypt = require('bcryptjs')
 const session = require('express-session')
+const {Op} = require('sequelize')
 
 class Controller{
     static home(req, res){
+        const search = req.query.search
             let data={}
-            Post.findAll({
-                include:{model:User},
-                order:[
-                    ['createdAt','DESC']
-                ]
-            })
-            .then(dataPost =>{
-                // console.log(dataPost);
-                data.dataPost=dataPost
-                return User.findByPk(req.params.id)
-            })
-            .then(dataUser=>{
-                // console.log(dataUser);
-                res.render('listPost',{...data,dataUser})
-                
-            })
+            if(search){
+                Post.findAll({
+                    include:[User,Tag],
+                    order:[
+                        ['createdAt','DESC']
+                    ],
+                    where: {caption:{[Op.iLike]:`%${search}%`   }}
 
-            .catch(err => res.send(err))
+                })
+                .then(dataPost =>{
+                    console.log(dataPost);
+                    data.dataPost=dataPost
+                    return User.findByPk(req.params.id)
+                })
+                .then(dataUser=>{
+                    // console.log(dataUser);
+                    res.render('listPost',{...data,dataUser})
+                    
+                })
+    
+                .catch(err => res.send(err))
+
+            } else{
+                Post.findAll({
+                    include:{model:User},
+                    order:[
+                        ['createdAt','DESC']
+                    ]
+                    
+                })
+                .then(dataPost =>{
+                    // console.log(dataPost);
+                    data.dataPost=dataPost
+                    return User.findByPk(req.params.id)
+                })
+                .then(dataUser=>{
+                    // console.log(dataUser);
+                    res.render('listPost',{...data,dataUser})
+                    
+                })
+    
+                .catch(err => res.send(err))
+
+            }
         }
         static getLogin(req,res){
             const {error} =req.query
@@ -109,10 +137,18 @@ class Controller{
 
         static addPost(req, res){
             // console.log(req.params.id);
+            let data={}
             User.findByPk(req.params.UserId)
             .then(dataUser =>{
+                data.dataUser=dataUser
+                return Tag.findAll()
+                
+
                 // console.log(dataUser);
-                res.render('addPost',{dataUser})
+                // res.render('addPost',{dataUser})
+            })
+            .then(dataTag=>{
+                res.render('addPost',{...data,dataTag})
             })
             .catch(err => res.send(err))
         }

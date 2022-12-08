@@ -12,7 +12,7 @@
     <%-include('./partials/navbar.ejs')%>
     <br>
     <a href="/addpost/<%=dataUser.id%>" class="btn btn-primary">add post</a>
-    <form action="" method="get">
+    <form action="/listPost/<%= dataUser.id %>? " method="get">
       <input type="text" name="search" style="width: 70%; border-radius: 5px; margin-bottom: 15px;"> <input type="submit" value="search">
       </form>
       <% dataPost.forEach(el=>{ %>

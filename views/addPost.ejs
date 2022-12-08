@@ -22,6 +22,11 @@
             <label>Your Photo</label>
             <input name= "img" type="text" class="form-control">
           </div>
+          <% dataTag.forEach(e => { %>
+            <label for="" > <%= e.name_tag %> </label>
+            <input type="checkbox" value="<%= e.id %> " name="TagId">
+           
+          <% }) %>
           <br>
           <button type="submit" class="btn btn-primary">Submit</button>
     </form>
