@@ -13,14 +13,14 @@
 
     <div class="container-login">
         <h1>Welcome to Name</h1>
-    <form action="/addpost/" method="post">
+    <form action="/addpost/<%= dataUser.id %> " method="post">
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Caption</label>
             <textarea class="form-control"  name="caption" rows="3"></textarea>
           </div>
           <div class="form-group">
             <label>Your Photo</label>
-            <input type="file" class="form-control">
+            <input name= "img" type="file" class="form-control">
           </div>
           <br>
           <button type="submit" class="btn btn-primary">Submit</button>

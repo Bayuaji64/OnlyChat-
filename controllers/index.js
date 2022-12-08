@@ -26,7 +26,7 @@ class Controller{
                     // console.log(isValidPassword);
     
                     if(isValidPassword){
-                        console.log(user);
+                        // console.log(user);
                         req.session.userId = user.id
                        
                         return res.render('listPost',{user})
@@ -94,6 +94,7 @@ class Controller{
             // console.log(req.params.id);
             User.findByPk(req.params.id)
             .then(dataUser =>{
+                console.log(dataUser);
                 res.render('addPost',{dataUser})
             })
             .catch(err => res.send(err))
@@ -101,7 +102,8 @@ class Controller{
         
         static add(req,res){
             const UserId = req.params.id;
-            const { caption, img} = req.body
+            const img = req.file.path
+            const { caption } = req.body
             Post.create({UserId ,caption, img, likeCount, dislikeCount})
             .then(()=>{
                 res.redirect('/')
@@ -111,6 +113,7 @@ class Controller{
             })
 
         }
+        
 
         
 }
