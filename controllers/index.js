@@ -3,7 +3,8 @@ const bcrypt = require('bcryptjs')
 const session = require('express-session')
 
 class Controller{
-    	static home(req, res){
+    static home(req, res){
+            let data={}
             Post.findAll({
                 include:{model:User},
                 order:[
@@ -11,9 +12,16 @@ class Controller{
                 ]
             })
             .then(dataPost =>{
-                console.log(dataPost);
-                res.render('listPost',{dataPost})
+                // console.log(dataPost);
+                data.dataPost=dataPost
+                return User.findByPk(req.params.id)
             })
+            .then(dataUser=>{
+                console.log(dataUser);
+                res.render('listPost',{...data,dataUser})
+                
+            })
+
             .catch(err => res.send(err))
         }
         static getLogin(req,res){
@@ -64,7 +72,7 @@ class Controller{
         static regPostPassword(req, res){
             User.create(req.body)
             .then(_=>{
-                res.redirect('/')
+                res.redirect('/login')
             })
             .catch(err=>{
                 if(err.name ==='SequelizeValidationError'|| err.name === 'SequelizeUniqueConstraintError'){
@@ -130,6 +138,16 @@ class Controller{
             Post.increment({dislikeCount:1},{where:{id:req.params.id}})
             .then(_=> res.redirect(`/listPost/${req.params.id}`))
             .catch(err => res.send(err))
+        }
+        static destroyById(req,res){
+            console.log(req.params.id);
+            Post.destroy({
+                where:{
+                    id: req.params.id
+                }
+            })
+            .then(()=> res.redirect(`/listPost/${req.params.UserId}`))
+            .catch(err=>res.send(err))
         }
 
         

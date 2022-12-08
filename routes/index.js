@@ -33,8 +33,9 @@ router.get('/regprofile', Controller.regGetProfile)
 router.post('/regprofile',Controller.regPostProfile)
 
 router.get('/listpost', Controller.listPost)
-router.get('/addpost/:id', Controller.addPost)
-router.post('/addpost/:id', Controller.add)
+router.get('/addpost/:UserId', Controller.addPost)
+router.post('/addpost/:UserId', Controller.add)
 router.get('/post/:id', Controller.likeCount)
 router.get('/postdislike/:id', Controller.dislikeCount)
+router.get('/delete/:id',Controller.destroyById)
 module.exports = router
