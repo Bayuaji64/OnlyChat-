@@ -1,3 +1,5 @@
+const {Profile} = require('../models')
+
 class Controller{
     	static home(req, res){
             res.render('login')

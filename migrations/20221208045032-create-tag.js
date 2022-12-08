@@ -7,7 +7,15 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references:{
+          model:{
+            tableName: 'Posttags'
+          }
+        },
+        key:'id'
+        
+
       },
       name_tag: {
         type: Sequelize.STRING
