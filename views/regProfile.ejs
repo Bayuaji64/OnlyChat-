@@ -13,6 +13,9 @@
         <form action="/regprofile" method="post">
             <h2>Form Registration</h2>
             <hr>
+            <% if(errMsg) { %>
+              <p style="color: red; font-weight: bold;"><%= errMsg %></p>
+          <% } %>
         <div class="form-group">
           <label for="exampleInputName">Full Name</label>
           <input type="text" name="fullName" class="form-control"placeholder="Enter Yourname" >
