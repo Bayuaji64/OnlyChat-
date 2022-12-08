@@ -63,6 +63,8 @@ module.exports = (sequelize, DataTypes) => {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(instance.password, salt);
         instance.password= hash
+
+        instance.role= "user"
         
       }
     },

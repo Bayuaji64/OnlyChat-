@@ -1,35 +1,48 @@
-const {Profile, User} = require('../models')
+const {Profile, User,Post} = require('../models')
 const bcrypt = require('bcryptjs')
+const session = require('express-session')
 
 class Controller{
     	static home(req, res){
-            const {error} =req.query
             // .catch(err=> res.send(err))
+            res.render('listPost')
+        }
+        static getLogin(req,res){
+            const {error} =req.query
             res.render('login',{error})
         }
         
         static postLogin(req,res){
+            // console.log(req.body);
             
             
             const {username,password}= req.body
     
             User.findOne({where: {username} })
             .then(user=>{
+                // console.log(user);
                 if(user){
                     const isValidPassword = bcrypt.compareSync(password,user.password)
+                    // console.log(isValidPassword);
     
                     if(isValidPassword){
-                        return res.redirect('/listpost')
+                        console.log(user);
+                        req.session.userId = user.id
+                       
+                        return res.redirect('/')
                     } else{
                         const error = "invalid username/password"
-                        return res.redirect(`/?error=${error}`)
+                        return res.redirect(`/login?error=${error}`)
                     }
     
                 } else{
                     const error = "Invalid username/password"
-                    return res.redirect(`/?error=${error}`)
+                    return res.redirect(`/login?error=${error}`)
                 }
     
+            })
+            .catch(err=>{
+                res.send(err)
             })
             
             
@@ -42,7 +55,7 @@ class Controller{
         static regPostPassword(req, res){
             User.create(req.body)
             .then(_=>{
-                res.redirect('listPost')
+                res.redirect('/')
             })
             .catch(err=>{
                 if(err.name ==='SequelizeValidationError'|| err.name === 'SequelizeUniqueConstraintError'){
@@ -76,9 +89,22 @@ class Controller{
         static listPost(req, res){
             res.render('listPost')
         }
+
+        static Add(req,res){
+            Post.create(req.body)
+            .then(()=>{
+                res.redirect('listPost')
+            })
+            .catch(err=>{
+                res.send(err)
+            })
+
+        }
         static addPost(req, res){
             res.render('addPost')
         }
+
+        
 }
 module.exports = Controller
 
