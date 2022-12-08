@@ -5,8 +5,7 @@ const profile = require('./profile')
 
 
 router.get(`/`, Controller.home)
-
-router.use('/post',post)
-router.use('/profile',profile)
+router.get('/regprofile', Controller.regProfile)
+router.get('/regpassword',Controller.regPassword)
 
 module.exports = router

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Profiles</title>
+    <%-include('./partials/style.ejs')%>
+</head>
+<body>
+    <%-include('./partials/navbar.ejs')%>
+    <div class="container-login">
+        <form action="">
+            <h2>Daftar Di sini</h2>
+            <hr>
+        <div class="form-group">
+          <label for="exampleInputName">Full Name</label>
+          <input type="text" class="form-control"placeholder="Enter Yourname" >
+        </div>
+        <div class="form-group">
+          <label>Date Of Birth</label>
+          <input type="date" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label>Date Of Birth</label>
+            <input type="file" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+          <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+    </div>
+</body>
+</html>
