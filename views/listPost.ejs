@@ -19,11 +19,11 @@
       <div class="container-post">
     <div class="card w-75">
         <div class="card-body">
-          <h5 class="card-title"><%=el.User.username%></h5>
+          <h5 class="card-title"><%=el.User.username %></h5>
           <h6><%= el.createdAt %></h6>
           <p class="card-text"><%= el.caption %></p>
           <p><b>Tag : </b>Belajar, politik, membaca</p> 
-          <a href="/post/<%=el.id%>" class="btn btn-success">Like <%=el.likeCount%></a> <a href="/postdislike/<%=el.id%>" class="btn btn-warning"> Dislike <%=el.dislikeCount%></a>  <a href="/delete/<%= el.id %> " class="btn btn-danger">delete</a>
+          <a href="/listpost/<%=dataUser.id%>/like/<%=el.id%>" class="btn btn-success">Like <%=el.likeCount%></a> <a href="/listpost/<%=dataUser.id%>/postdislike/<%=el.id%>" class="btn btn-warning"> Dislike <%=el.dislikeCount%></a>  <a href="/listpost/<%=dataUser.id%>/delete/<%= el.id %> " class="btn btn-danger">delete</a>
         </div>
       </div>
     </div>

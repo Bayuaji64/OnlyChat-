@@ -17,7 +17,7 @@ class Controller{
                 return User.findByPk(req.params.id)
             })
             .then(dataUser=>{
-                console.log(dataUser);
+                // console.log(dataUser);
                 res.render('listPost',{...data,dataUser})
                 
             })
@@ -109,7 +109,7 @@ class Controller{
 
         static addPost(req, res){
             // console.log(req.params.id);
-            User.findByPk(req.params.id)
+            User.findByPk(req.params.UserId)
             .then(dataUser =>{
                 // console.log(dataUser);
                 res.render('addPost',{dataUser})
@@ -118,7 +118,8 @@ class Controller{
         }
         
         static add(req,res){
-            const UserId = req.params.id;
+            const UserId = req.params.UserId;
+            // console.log(UserId);
             // const img = req.file.path
             const { caption,img } = req.body
             Post.create({UserId ,caption, img})
@@ -131,16 +132,15 @@ class Controller{
         }
         static likeCount(req, res){
             Post.increment({likeCount:1},{where:{id:req.params.id}})
-            .then(_=> res.redirect(`/listPost/${req.params.id}`))
+            .then(_=> res.redirect(`/listPost/${req.params.UserId}`))
             .catch(err => res.send(err))
         }
         static dislikeCount(req, res){
             Post.increment({dislikeCount:1},{where:{id:req.params.id}})
-            .then(_=> res.redirect(`/listPost/${req.params.id}`))
+            .then(_=> res.redirect(`/listPost/${req.params.UserId}`))
             .catch(err => res.send(err))
         }
         static destroyById(req,res){
-            console.log(req.params.id);
             Post.destroy({
                 where:{
                     id: req.params.id
