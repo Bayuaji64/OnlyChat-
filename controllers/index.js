@@ -4,8 +4,17 @@ const session = require('express-session')
 
 class Controller{
     	static home(req, res){
-            // .catch(err=> res.send(err))
-            res.render('listPost')
+            Post.findAll({
+                include:{model:User},
+                order:[
+                    ['createdAt','DESC']
+                ]
+            })
+            .then(dataPost =>{
+                console.log(dataPost);
+                res.render('listPost',{dataPost})
+            })
+            .catch(err => res.send(err))
         }
         static getLogin(req,res){
             const {error} =req.query
@@ -29,7 +38,7 @@ class Controller{
                         // console.log(user);
                         req.session.userId = user.id
                        
-                        return res.render('listPost',{user})
+                        return res.redirect(`/listPost/${user.id}`)
                     } else{
                         const error = "invalid username/password"
                         return res.redirect(`/login?error=${error}`)
@@ -94,7 +103,7 @@ class Controller{
             // console.log(req.params.id);
             User.findByPk(req.params.id)
             .then(dataUser =>{
-                console.log(dataUser);
+                // console.log(dataUser);
                 res.render('addPost',{dataUser})
             })
             .catch(err => res.send(err))
@@ -102,18 +111,26 @@ class Controller{
         
         static add(req,res){
             const UserId = req.params.id;
-            const img = req.file.path
-            const { caption } = req.body
-            Post.create({UserId ,caption, img, likeCount, dislikeCount})
+            // const img = req.file.path
+            const { caption,img } = req.body
+            Post.create({UserId ,caption, img})
             .then(()=>{
-                res.redirect('/')
+                res.redirect(`/listPost/${UserId}`)
             })
             .catch(err=>{
                 res.send(err)
             })
-
         }
-        
+        static likeCount(req, res){
+            Post.increment({likeCount:1},{where:{id:req.params.id}})
+            .then(_=> res.redirect(`/listPost/${req.params.id}`))
+            .catch(err => res.send(err))
+        }
+        static dislikeCount(req, res){
+            Post.increment({dislikeCount:1},{where:{id:req.params.id}})
+            .then(_=> res.redirect(`/listPost/${req.params.id}`))
+            .catch(err => res.send(err))
+        }
 
         
 }
