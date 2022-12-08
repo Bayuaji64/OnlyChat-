@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       
     },
     dateOfBirth:{
-      type:DataTypes.DATE,
+      type:DataTypes.DATEONLY,
       allowNull:false,
       // isBefore:"01-01-2015",
       validate:{
