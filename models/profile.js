@@ -13,12 +13,65 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Profile.belongsTo(models.User)
     }
+    // Hook(){
+    //   if
+    //   this.fullName=
+    //   this.dateOfiBirth= 
+
+    // }
   }
   Profile.init({
-    fullName: DataTypes.STRING,
-    dateOfBirth: DataTypes.DATE,
-    imgProfile: DataTypes.STRING,
-    bio: DataTypes.TEXT
+    fullName:{
+      type:DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:{
+
+          msg:"Name is Required!!"
+        },
+        notEmpty:{
+          msg:'Name is Required!!'
+        }
+        
+      }
+      
+      
+    },
+    dateOfBirth:{
+      type:DataTypes.DATE,
+      allowNull:false,
+      isBefore:"2015-01-01",
+      validate:{
+        notNull:{
+          
+          msg:"Insert you Age!!"
+        },
+        notEmpty:{
+          msg:'Insert your Age!!'
+        },
+        isBefore:{
+          msg: "You're still young!!"
+        }
+      
+
+        
+
+        
+      }
+
+
+    },
+    imgProfile:{
+     type: DataTypes.STRING,
+     allowNull:false,
+      
+    },
+
+    bio:{
+      type:DataTypes.TEXT,
+      allowNull:false
+
+    },
   }, {
     sequelize,
     modelName: 'Profile',
