@@ -1,0 +1,16 @@
+[
+    {
+        "fullName" : "Tenyom",
+        "dateOfBirth": "1996-01-01",
+        "imgProfile": "https://i.pinimg.com/originals/08/f2/25/08f22527b5352c7acc4a14dc29ef2f95.jpg",
+        "bio" :"Raja Hutan",
+        "UserId" : 1
+    },
+    {
+        "fullName" : "Manyot",
+        "dateOfBirth": "1998-11-01",
+        "imgProfile": "https://i.pinimg.com/originals/08/f2/25/08f22527b5352c7acc4a14dc29ef2f95.jpg",
+        "bio" :"Raja Hutan",
+        "UserId" : 2
+    }
+]
