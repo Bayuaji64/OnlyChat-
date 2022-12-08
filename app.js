@@ -5,7 +5,6 @@ const router = require(`./routes`)
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended: false}))
-
 app.use(router)
 
 app.listen(port, () => {

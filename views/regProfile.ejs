@@ -10,28 +10,27 @@
 <body>
     <%-include('./partials/navbar.ejs')%>
     <div class="container-login">
-        <form action="">
-            <h2>Daftar Di sini</h2>
+        <form action="/regprofile" method="post">
+            <h2>Form Registration</h2>
             <hr>
         <div class="form-group">
           <label for="exampleInputName">Full Name</label>
-          <input type="text" class="form-control"placeholder="Enter Yourname" >
+          <input type="text" name="fullName" class="form-control"placeholder="Enter Yourname" >
         </div>
         <div class="form-group">
           <label>Date Of Birth</label>
-          <input type="date" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <input type="date" class="form-control" name="dateOfBirth" id="exampleInputPassword1" placeholder="Password">
         </div>
         <div class="form-group">
-            <label>Date Of Birth</label>
-            <input type="file" class="form-control">
+            <label>Your Photo profile</label>
+            <input type="file" class="form-control" name="imgProfile">
           </div>
           <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="bio" rows="3"></textarea>
           </div>
           <br>
         <button type="submit" class="btn btn-primary">Submit</button>
-
         </form>
     </div>
 </body>

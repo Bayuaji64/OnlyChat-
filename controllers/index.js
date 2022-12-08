@@ -2,8 +2,11 @@ class Controller{
     	static home(req, res){
             res.render('login')
         }
-        static regProfile(req, res){
+        static regGetProfile(req, res){
             res.render('regProfile')
+        }
+        static regPostProfile(req, res){
+            console.log(req.body)
         }
         static regPassword(req, res){
             res.render('regPassword')
