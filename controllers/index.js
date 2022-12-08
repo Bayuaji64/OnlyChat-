@@ -6,7 +6,13 @@ class Controller{
             res.render('regProfile')
         }
         static regPassword(req, res){
-            res.render('regpassword')
+            res.render('regPassword')
+        }
+        static listPost(req, res){
+            res.render('listPost')
+        }
+        static addPost(req, res){
+            res.render('addPost')
         }
 }
 module.exports = Controller
