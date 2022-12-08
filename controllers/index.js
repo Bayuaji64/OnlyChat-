@@ -5,10 +5,23 @@ class Controller{
             res.render('login')
         }
         static regGetProfile(req, res){
-            res.render('regProfile')
+            const errMsg = req.query.errMsg
+            res.render('regProfile', {errMsg})
         }
         static regPostProfile(req, res){
-            console.log(req.body)
+            const{ fullName,dateOfBirth,imgProfile, bio } = req.body
+            Profile.create({fullName,dateOfBirth,imgProfile, bio})
+            .then(_=> res.redirect('regPassword'))
+            .catch(err=>{
+                if(err.name ==='SequelizeValidationError'|| err.name === 'SequelizeUniqueConstraintError'){
+                    const errMsg = err.errors.map(el=> el.message)
+                    res.redirect(`/regprofile?errMsg=${errMsg}`)
+                } else {
+                    res.send(err)
+                }
+                
+
+            }) 
         }
         static regPassword(req, res){
             res.render('regPassword')

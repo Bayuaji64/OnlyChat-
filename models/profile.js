@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     dateOfBirth:{
       type:DataTypes.DATE,
       allowNull:false,
-      isBefore:"2015-01-01",
+      // isBefore:"01-01-2015",
       validate:{
         notNull:{
           
@@ -49,9 +49,9 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty:{
           msg:'Insert your Age!!'
         },
-        isBefore:{
-          msg: "You're still young!!"
-        }
+        // isBefore:{
+        //   msg: "You're still young!!"
+        // }
       
 
         
