@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
           msg:'Name is Required!!'
         }
         
+        
       }
       
       
@@ -49,15 +50,13 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty:{
           msg:'Insert your Age!!'
         },
+        isDate:true
+
         // isBefore:{
         //   msg: "You're still young!!"
         // }
-      
 
-        
-
-        
-      }
+      },
 
 
     },
@@ -76,5 +75,9 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Profile',
   });
+
+  
+
+
   return Profile;
 };

@@ -1,7 +1,9 @@
 'use strict';
+const bcrypt = require('bcryptjs')
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -12,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasOne(models.Profile)
-
+      
     }
   }
   User.init({
@@ -21,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       validate:{
         notNull:{
-
+          
           msg:"Input your username please!!"
         },
         notEmpty:{
@@ -30,32 +32,43 @@ module.exports = (sequelize, DataTypes) => {
         
       }
       
-
-
-
+      
+      
+      
     },
     password:{
       type:DataTypes.STRING,
       allowNull:false,
       validate:{
         notNull:{
-
+          
           msg:"Input your password please!!"
         },
         notEmpty:{
           msg:'Input your password please!!'
         }
-
+        
         
       }
-
-
-
+      
+      
+      
     },
     role: DataTypes.STRING
   }, {
+
+
+    hooks:{
+      beforeCreate : (instance, options) => {
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(instance.password, salt);
+        instance.password= hash
+        
+      }
+    },
     sequelize,
-    modelName: 'User',
+    modelName: 'User'
   });
+  
   return User;
 };

@@ -13,6 +13,9 @@
         <div class="container-login">
             <h2>Login Dulu Gays</h2>
             <hr>
+            <% if(error) { %>
+              <p><%= error %></p>
+          <% } %>
         <div class="form-group">
           <label for="exampleInputEmail1">Username</label>
           <input type="text" class="form-control"placeholder="Enter Username" >
@@ -24,7 +27,7 @@
         <br>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
-      <a href="regprofile" class="btn btn-success">register Now</a>
+      <a href="regPassword" class="btn btn-success">register Now</a>
     </div>
 </body>
 </html>
