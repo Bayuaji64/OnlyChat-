@@ -29,7 +29,7 @@ class Controller{
                         console.log(user);
                         req.session.userId = user.id
                        
-                        return res.redirect('/')
+                        return res.render('listPost',{user})
                     } else{
                         const error = "invalid username/password"
                         return res.redirect(`/login?error=${error}`)
@@ -90,18 +90,26 @@ class Controller{
             res.render('listPost')
         }
 
-        static Add(req,res){
-            Post.create(req.body)
+        static addPost(req, res){
+            // console.log(req.params.id);
+            User.findByPk(req.params.id)
+            .then(dataUser =>{
+                res.render('addPost',{dataUser})
+            })
+            .catch(err => res.send(err))
+        }
+        
+        static add(req,res){
+            const UserId = req.params.id;
+            const { caption, img} = req.body
+            Post.create({UserId ,caption, img, likeCount, dislikeCount})
             .then(()=>{
-                res.redirect('listPost')
+                res.redirect('/')
             })
             .catch(err=>{
                 res.send(err)
             })
 
-        }
-        static addPost(req, res){
-            res.render('addPost')
         }
 
         

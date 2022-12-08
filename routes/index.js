@@ -33,6 +33,7 @@ router.get('/regprofile', Controller.regGetProfile)
 router.post('/regprofile',Controller.regPostProfile)
 
 router.get('/listpost', Controller.listPost)
-router.get('/addpost', Controller.addPost)
+router.get('/addpost/:id', Controller.addPost)
+router.post('/addpost/:id', Controller.add)
 
 module.exports = router

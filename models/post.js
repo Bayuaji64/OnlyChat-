@@ -24,8 +24,16 @@ module.exports = (sequelize, DataTypes) => {
     likeCount: DataTypes.INTEGER,
     dislikeCount: DataTypes.INTEGER
   }, {
+    hooks:{
+      beforeCreate : (instance, options) => {
+        instance.likeCount = 0
+        instance.dislikeCount = 0
+        
+      }
+    },
     sequelize,
     modelName: 'Post',
+    
   });
   return Post;
 };

@@ -11,7 +11,7 @@
 <body>
     <%-include('./partials/navbar.ejs')%>
     <br>
-    <a href="" class="btn btn-primary">add post</a>
+    <a href="/addpost/<%= user.id%>" class="btn btn-primary">add post</a>
     <div class="container-post">
         <form action="" method="get">
 <input type="text" name="search" style="width: 70%; border-radius: 5px; margin-bottom: 15px;"> <input type="submit" value="search">
