@@ -10,7 +10,7 @@ class Controller{
             let data={}
             if(search){
                 Post.findAll({
-                    include:[User,Posttag],
+                    include:[User,Tag],
                     order:[
                         ['createdAt','DESC']
                     ],
@@ -31,8 +31,9 @@ class Controller{
                 .catch(err => res.send(err))
 
             } else{
+                
                 Post.findAll({
-                    include:{model:User},
+                    include:[User,Tag],
                     order:[
                         ['createdAt','DESC']
                     ]
@@ -166,16 +167,17 @@ class Controller{
         
         static add(req,res){
             const UserId = req.params.UserId;
+            console.log(req.body);
             // console.log(UserId);
             // const img = req.file.path
-            const { caption,img } = req.body
-            Post.create({UserId ,caption, img})
-            .then(()=>{
-                res.redirect(`/listPost/${UserId}`)
-            })
-            .catch(err=>{
-                res.send(err)
-            })
+            // const { caption,img,TagId } = req.body
+            // Post.create({UserId ,caption, img,TagId})
+            // .then(()=>{
+            //     res.redirect(`/listPost/${UserId}`)
+            // })
+            // .catch(err=>{
+            //     res.send(err)
+            // })
         }
         static likeCount(req, res){
             Post.increment({likeCount:1},{where:{id:req.params.id}})
