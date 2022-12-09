@@ -2,6 +2,7 @@ const {Profile, User,Post,Tag,Posttag} = require('../models')
 const bcrypt = require('bcryptjs')
 const session = require('express-session')
 const {Op} = require('sequelize')
+const { render } = require('ejs')
 
 class Controller{
     static home(req, res){
@@ -113,24 +114,34 @@ class Controller{
         }
         static regGetProfile(req, res){
             const errMsg = req.query.errMsg
-            res.render('regProfile', {errMsg})
+            User.findByPk(req.params.UserId)
+            .then(dataUser=>{
+            res.render('regProfile', {errMsg, dataUser})
+        })
+        .catch(err => res.send(err))
         }
         static regPostProfile(req, res){
+            const UserId = req.params.UserId
             const{ fullName,dateOfBirth,imgProfile, bio } = req.body
-            Profile.create({fullName,dateOfBirth,imgProfile, bio})
-            .then(_=> res.redirect('regPassword'))
+            Profile.create({fullName,dateOfBirth,imgProfile, bio, UserId})
+            .then(_=> res.redirect(`/profile/${req.params.UserId}`))
             .catch(err=>{
                 if(err.name ==='SequelizeValidationError'|| err.name === 'SequelizeUniqueConstraintError'){
                     const errMsg = err.errors.map(el=> el.message)
-                    res.redirect(`/regprofile?errMsg=${errMsg}`)
+                    res.redirect(`/addprofile/${req.params.UserId}?errMsg=${errMsg}`)
                 } else {
                     res.send(err)
                 }
-                
-
             }) 
         }
-
+        static getProfile(req, res){
+            User.findByPk(req.params.UserId,{
+                include:{model:Profile}
+            })
+            .then(data => res.render(data))
+            // .then(data=> res.render('profile',{data}))
+            .catch(err=> res.send(err))
+        }
         static listPost(req, res){
             res.render('listPost')
         }
@@ -186,7 +197,6 @@ class Controller{
             .catch(err=>res.send(err))
         }
 
-        
 }
 module.exports = Controller
 
