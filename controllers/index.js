@@ -1,4 +1,4 @@
-const {Profile, User,Post,Tag} = require('../models')
+const {Profile, User,Post,Tag,Posttag} = require('../models')
 const bcrypt = require('bcryptjs')
 const session = require('express-session')
 const {Op} = require('sequelize')
@@ -9,7 +9,7 @@ class Controller{
             let data={}
             if(search){
                 Post.findAll({
-                    include:[User,Tag],
+                    include:[User,Posttag],
                     order:[
                         ['createdAt','DESC']
                     ],
