@@ -1,4 +1,5 @@
 'use strict';
+const { dateFormat }= require('../helpers/helper')
 const {
   Model
 } = require('sequelize');
@@ -15,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       Post.hasMany(models.Posttag)
       // Post.belongsToMany(models.Posttag,{through:'PostId'})
       // Tag.belongsToMany(models.Post,{through:'Posttags'})
+    }
+    get dataOfPost(){
+      return dateFormat(this.createdAt)
     }
   }
   Post.init({

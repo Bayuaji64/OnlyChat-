@@ -12,6 +12,8 @@
     <%-include('./partials/navbar.ejs')%>
     <br>
     <a href="/addpost/<%=dataUser.id%>" class="btn btn-primary">add post</a>
+    <a href="/addprofile/<%=dataUser.id%>" class="btn btn-primary">add Profile</a>
+    <a href="/login" class="btn btn-danger">Logout</a>
     <form action="/listPost/<%= dataUser.id %>? " method="get">
       <input type="text" name="search" style="width: 70%; border-radius: 5px; margin-bottom: 15px;"> <input type="submit" value="search">
       </form>
@@ -20,10 +22,13 @@
     <div class="card w-75">
         <div class="card-body">
           <h5 class="card-title"><%=el.User.username %></h5>
-          <h6><%= el.createdAt %></h6>
+          <h6><%= el.dataOfPost %></h6>
           <p class="card-text"><%= el.caption %></p>
           <p><b>Tag : </b>Belajar, politik, membaca</p> 
-          <a href="/listpost/<%=dataUser.id%>/like/<%=el.id%>" class="btn btn-success">Like <%=el.likeCount%></a> <a href="/listpost/<%=dataUser.id%>/postdislike/<%=el.id%>" class="btn btn-warning"> Dislike <%=el.dislikeCount%></a>  <a href="/listpost/<%=dataUser.id%>/delete/<%= el.id %> " class="btn btn-danger">delete</a>
+          <a href="/listpost/<%=dataUser.id%>/like/<%=el.id%>" class="btn btn-success">Like <%=el.likeCount%></a> <a href="/listpost/<%=dataUser.id%>/postdislike/<%=el.id%>" class="btn btn-warning"> Dislike <%=el.dislikeCount%></a>  
+          <% if(dataUser.role === 'admin'){%>
+          <a href="/listpost/<%=dataUser.id%>/delete/<%= el.id %> " class="btn btn-danger">delete</a>
+        <%}%>
         </div>
       </div>
     </div>
